@@ -1,0 +1,41 @@
+{
+  "name": "cardgenius-app-mern",
+  "version": "1.0.0",
+  "description": "A web application that generates ID cards based on user input using the MERN stack.",
+  "scripts": {
+    "start": "node server/index --prefix server",
+    "server": "nodemon server/index --prefix server",
+    "client": "npm run dev --prefix client",
+    "build": "cd client && npm run build",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "install": "cd client && npm install && cd .. && cd server && npm install && cd ..",
+    "data:import": "node server/seeder",
+    "data:destroy": "node server/seeder -d"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itxSaaad/cardgenius-app-mern.git"
+  },
+  "keywords": [
+    "nodejs",
+    "mongodb",
+    "reactjs",
+    "expressjs",
+    "mern-stack",
+    "internship-task",
+    "idcard-generator"
+  ],
+  "author": "Muhammad Saad",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/itxSaaad/cardgenius-app-mern/issues"
+  },
+  "homepage": "https://github.com/itxSaaad/cardgenius-app-mern#readme",
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.45.0",
+    "nodemon": "^3.0.1"
+  }
+}
