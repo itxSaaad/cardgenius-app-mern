@@ -7,6 +7,8 @@ const morgan = require('morgan');
 const connectDb = require('./config/db');
 const { notFound, errorHandler } = require('./middlewares/errorMiddleware');
 
+const userRoutes = require('./routes/userRoutes');
+
 dotenv.config();
 
 connectDb();
@@ -23,6 +25,8 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('API Is Runnig Perfectly!');
 });
+
+app.use('/api/users', userRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
