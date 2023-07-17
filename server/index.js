@@ -8,6 +8,7 @@ const connectDb = require('./config/db');
 const { notFound, errorHandler } = require('./middlewares/errorMiddleware');
 
 const userRoutes = require('./routes/userRoutes');
+const formRoutes = require('./routes/formRoutes');
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', userRoutes);
+app.use('/api/forms', formRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
