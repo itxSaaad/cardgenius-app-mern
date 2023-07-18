@@ -1,5 +1,9 @@
 import Head from 'next/head';
 
+import Features from '@/components/home/Features';
+import GetStarted from '@/components/home/GetStarted';
+import Jumbotron from '@/components/home/Jumbotron';
+
 export default function HomePage() {
   return (
     <>
@@ -11,13 +15,9 @@ export default function HomePage() {
         />
       </Head>
 
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <h1 className="text-4xl font-bold">Welcome to CardGenius!</h1>
-        <p className="text-xl">
-          CardGenius is a smart ID card generation system that allows you to
-          generate ID cards for your employees, students, etc.
-        </p>
-      </main>
+      <Jumbotron />
+      <Features />
+      <GetStarted />
     </>
   );
 }
