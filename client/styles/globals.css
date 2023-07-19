@@ -7,3 +7,25 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+/* Customize the scrollbar track */
+::-webkit-scrollbar-track {
+  background-color: #14b8a6; /* Replace with your desired background color */
+}
+
+/* Customize the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #8b5cf6; /* Replace with your desired thumb color */
+  border-radius: 10px; /* Adjust the border-radius as needed */
+}
+
+/* Customize the scrollbar on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #714dc6; /* Replace with your desired thumb color on hover */
+}
+
+/* Customize the scrollbar width and height */
+::-webkit-scrollbar {
+  width: 6px; /* Replace with your desired width */
+  height: 6px; /* Replace with your desired height */
+}

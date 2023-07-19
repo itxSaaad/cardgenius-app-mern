@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
 import Button from '../ui/Button';
+import AuthModal from '../ui/AuthModal';
 
 function MainNavbar() {
   // For the Dropdown in Nav
@@ -23,13 +24,14 @@ function MainNavbar() {
   }, [dropdownRef]);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const logoutHandler = () => {
     console.log('Logged Out Successfully!');
     setDropIsOpen(!dropIsOpen);
   };
 
-  const userInfo = true;
+  const userInfo = false;
   return (
     <nav className="fixed bg-white w-screen shadow-none z-50 transition-all duration-500 ease-in-out">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -102,7 +104,7 @@ function MainNavbar() {
                   href="/generate-card"
                   className="block mt-4 lg:inline-block lg:mt-0 p-2 text-violet-500 hover:font-medium hover:text-violet-700"
                 >
-                  Technicians
+                  Generate Card
                 </Link>
 
                 <Link
@@ -153,14 +155,19 @@ function MainNavbar() {
                 )}
               </div>
             ) : (
-              <Link href="/login">
+              <>
                 <Button
                   variant="secondary"
                   className=" font-medium rounded-md text-sm my-2 px-2 py-2 sm:text-md sm:my-4 sm:py-3 sm:px-4"
+                  onClick={() => setIsAuthModalOpen(true)}
                 >
                   Login<span className="hidden sm:inline"> / Register</span>
                 </Button>
-              </Link>
+
+                {isAuthModalOpen && (
+                  <AuthModal onClose={() => setIsAuthModalOpen(false)} />
+                )}
+              </>
             )}
           </div>
         </div>
@@ -180,7 +187,7 @@ function MainNavbar() {
             className="text-violet-500 hover:text-violet-700 block px-3 py-2 rounded-md text-base hover:font-medium"
             onClick={() => setIsOpen(!isOpen)}
           >
-            Create ID-Card
+            Generate Card
           </Link>
           <Link
             href="/contact-us"
