@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 
 const IDCardCredential = require('../schemas/idCredentialsSchema');
+const upload = require('../middlewares/imageUploadMiddleware');
 
 // @desc    Get ID card credentials by ID
 // @route   GET /api/forms/:id
@@ -22,8 +23,16 @@ const getFormById = asyncHandler(async (req, res) => {
 // @access  Public
 
 const createForm = asyncHandler(async (req, res) => {
-  const { name, email, phone, address, idImage } = req.body;
+  const { name, email, phone, address } = req.body;
   const userId = req.user._id;
+
+  // req.file contains the uploaded image information
+  if (!req.file) {
+    res.status(400);
+    throw new Error('Please Upload an image');
+  }
+
+  const idImage = req.file.path; // Uploaded image path
 
   const idCardCredential = new IDCardCredential({
     user: userId,

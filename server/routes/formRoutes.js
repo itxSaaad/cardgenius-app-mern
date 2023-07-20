@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { protect, admin } = require('../middlewares/authMiddleware');
+const upload = require('../middlewares/imageUploadMiddleware');
 
 const {
   getAllForms,
@@ -10,7 +11,10 @@ const {
   deleteForm,
 } = require('../controllers/formControllers');
 
-router.route('/').get(protect, admin, getAllForms).post(protect, createForm);
+router
+  .route('/')
+  .get(protect, admin, getAllForms)
+  .post(protect, upload.single('idImage'), createForm);
 
 router
   .route('/:id')
