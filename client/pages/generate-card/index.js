@@ -3,7 +3,11 @@ import Head from 'next/head';
 import { useState } from 'react';
 
 import Loader from '@/components/ui/Loader';
+
 const CardDataForm = dynamic(() => import('@/components/ui/CardDataForm'), {
+  loading: () => <Loader />,
+});
+const Card = dynamic(() => import('@/components/ui/Card'), {
   loading: () => <Loader />,
 });
 
@@ -29,7 +33,7 @@ function GenerateCardPage() {
       </Head>
 
       <section className="min-h-screen bg-gradient-to-b from-teal-600 to-teal-500 text-white flex flex-col sm:flex-row justify-center items-center relative overflow-hidden py-20 px-10 sm:p-24">
-        <div className="w-full divide-x-4  divide-violet-600 flex flex-col-reverse sm:flex-row items-center justify-evenly bg-white border-2 border-white rounded-md p-6">
+        <Card className="divide-x-4 divide-violet-600 flex flex-col-reverse sm:flex-row items-center justify-evenly p-6">
           {submitted ? (
             <div>templates</div>
           ) : (
@@ -62,7 +66,7 @@ function GenerateCardPage() {
               </div>
             </>
           )}
-        </div>
+        </Card>
       </section>
     </>
   );

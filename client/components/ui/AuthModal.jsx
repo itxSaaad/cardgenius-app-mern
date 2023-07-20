@@ -1,7 +1,14 @@
 import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 
-import LoginForm from './LoginForm';
-import RegisterForm from './RegisterForm';
+import Loader from './Loader';
+
+const LoginForm = dynamic(() => import('./LoginForm'), {
+  loading: () => <Loader />,
+});
+const RegisterForm = dynamic(() => import('./RegisterForm'), {
+  loading: () => <Loader />,
+});
 
 function AuthModal({ onClose }) {
   const [activeForm, setActiveForm] = useState('login');

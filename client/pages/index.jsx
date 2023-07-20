@@ -1,8 +1,17 @@
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
 
-import Features from '@/components/home/Features';
-import GetStarted from '@/components/home/GetStarted';
-import Jumbotron from '@/components/home/Jumbotron';
+import Loader from '@/components/ui/Loader';
+
+const Jumbotron = dynamic(() => import('@/components/home/Jumbotron'), {
+  loading: () => <Loader />,
+});
+const Features = dynamic(() => import('@/components/home/Features'), {
+  loading: () => <Loader />,
+});
+const GetStarted = dynamic(() => import('@/components/home/GetStarted'), {
+  loading: () => <Loader />,
+});
 
 export default function HomePage() {
   return (
