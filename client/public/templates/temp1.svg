@@ -113,6 +113,7 @@
            d="M 143.015,137.521 H 31.237 v 99.89 h 111.778 z"
            style="fill:#c5c5c5;fill-opacity:1;fill-rule:nonzero;stroke:none"
            id="path46" />
+           <image xlink:href="{{idImage}}" x="31.237" y="137.521" height="99.89" width="111.778" preserveAspectRatio="none"></image>
       </g>
     </g>
     <text
@@ -123,34 +124,8 @@
          x="0 4.6506767 9.4825487 14.586214 19.274639 22.407806 25.405077 27.050934 33.762707 38.866371 41.86364 46.876709 51.565132 58.080612"
          y="0"
          sodipodi:role="line"
-         id="tspan48">Robert Mathews</tspan></text>
-    <text
-       xml:space="preserve"
-       transform="matrix(1,0,0,-1,23.957,231.0962)"
-       style="font-variant:normal;font-weight:600;font-stretch:normal;font-size:5.2758px;font-family:'Poppins SemiBold';-inkscape-font-specification:Poppins-SemiBold;writing-mode:lr-tb;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="text54"><tspan
-         x="0 5.0594921 10.282535 16.02788 20.253796 25.023119 29.90851"
-         y="0"
-         sodipodi:role="line"
-         id="tspan52">COMPANY</tspan></text>
-    <text
-       xml:space="preserve"
-       transform="matrix(1,0,0,-1,58.323561,231.0962)"
-       style="font-variant:normal;font-weight:300;font-stretch:normal;font-size:5.2758px;font-family:'Poppins Light';-inkscape-font-specification:Poppins-Light;writing-mode:lr-tb;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="text58"><tspan
-         x="0 4.642704 9.095479 14.561208"
-         y="0"
-         sodipodi:role="line"
-         id="tspan56">NAME</tspan></text>
-    <text
-       xml:space="preserve"
-       transform="matrix(1,0,0,-1,61.1055,125.7676)"
-       style="font-variant:normal;font-weight:200;font-stretch:normal;font-size:3.5771px;font-family:'Poppins ExtraLight';-inkscape-font-specification:Poppins-ExtraLight;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="text62"><tspan
-         x="0 3.6343336 6.5782871 9.2682657 11.868817 14.33344 16.794485 18.250364 21.340979 24.871576 26.5707 30.205032 33.148987 36.239601 39.183552 42.714149 45.178772"
-         y="0"
-         sodipodi:role="line"
-         id="tspan60">MARKETING MANAGER</tspan></text>
+         id="tspan48">{{name}}</tspan></text>
+    
     <g
        id="g64">
       <g
@@ -170,19 +145,15 @@
          x="0 1.2026836 5.0426421 6.4448738 10.11225 13.585471 24.803328 25.709385 27.111616 30.385288 33.658962 36.932632 40.206306 43.479977 46.753651 50.027325"
          y="0"
          sodipodi:role="line"
-         id="tspan74">ID No : 00000000</tspan><tspan
+         id="tspan74">Email : {{email}}</tspan><tspan
          x="0 3.8399584 8.1059799 11.293361 25.315681 26.221739 29.026203 33.534916 38.043633 40.033722 43.87368 47.713642 49.703732 52.783249 55.469063 58.942284"
          y="10.2309"
          sodipodi:role="line"
-         id="tspan76">DOB : MM/DD/YEAR</tspan><tspan
+         id="tspan76">Phone : {{phone}}</tspan><tspan
          x="0 2.6858137 8.1922712 11.821895 13.024578 14.227262 24.042885 24.948944 27.753407 30.703487 34.176708 37.542065 39.537548 40.939781 46.446239 50.075863 51.278545 52.481228 53.883461 57.513084 60.986305 64.357056 67.091408 68.493637 71.91832 75.28907 77.284554"
          y="20.461802"
          sodipodi:role="line"
-         id="tspan78">Email : your mail goes here</tspan><tspan
-         x="0 3.0094056 6.4340878 9.9073086 13.33199 16.70274 25.116133 26.02219 28.826654 31.95471 35.228382 38.502056 39.904285 43.177959 46.451633 49.725304 51.127537 54.401207 57.674881"
-         y="30.692701"
-         sodipodi:role="line"
-         id="tspan80">Phone : +00 000 000</tspan></text>
+         id="tspan78">Address : {{address}}</tspan></text>
     <g
        id="g84">
       <g

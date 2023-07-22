@@ -27,30 +27,7 @@ const Card = dynamic(() => import('@/components/ui/Card'), {
   loading: () => <Loader />,
 });
 
-const DUMMY_TEMPLATES = [
-  {
-    id: 1,
-    name: 'Blue Accent',
-    design: '/templates/temp1.svg',
-  },
-  {
-    id: 2,
-    name: 'Green Accent',
-    design: '/templates/temp1.svg',
-  },
-  {
-    id: 3,
-    name: 'Red Accent',
-    design: '/templates/temp1.svg',
-  },
-  {
-    id: 4,
-    name: 'Gray Accent',
-    design: '/templates/temp1.svg',
-  },
-];
-
-function GenerateCardPage() {
+function GenerateCardPage(props) {
   const [steps, setSteps] = useState(2);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const totalSteps = 3;
@@ -79,7 +56,7 @@ function GenerateCardPage() {
 
           {steps === 2 && (
             <TemplateStep
-              templates={DUMMY_TEMPLATES}
+              templates={props.templates}
               setSteps={setSteps}
               setSelectedTemplate={setSelectedTemplate}
             />
@@ -87,7 +64,7 @@ function GenerateCardPage() {
 
           {steps === 3 && (
             <PreviewStep
-              templates={DUMMY_TEMPLATES}
+              templates={props.templates}
               setSteps={setSteps}
               selectedTemplate={selectedTemplate}
             />
@@ -101,4 +78,44 @@ function GenerateCardPage() {
     </>
   );
 }
+
+export async function getServerSideProps() {
+  const temp1 = await fetch(
+    `${process.env.CLIENT_URL}/templates/temp1.svg`
+  ).then((res) => res.text());
+
+  const temp2 = await fetch(
+    `${process.env.CLIENT_URL}/templates/temp2.svg`
+  ).then((res) => res.text());
+
+  const templates = [
+    {
+      id: 1,
+      name: 'Blue Accent',
+      content: temp1,
+    },
+    {
+      id: 2,
+      name: 'Green Accent',
+      content: temp1,
+    },
+    {
+      id: 3,
+      name: 'Red Accent',
+      content: temp1,
+    },
+    {
+      id: 4,
+      name: 'Yellow Accent',
+      content: temp1,
+    },
+  ];
+
+  return {
+    props: {
+      templates,
+    },
+  };
+}
+
 export default GenerateCardPage;

@@ -5,8 +5,8 @@ function TemplateItem({ template, onSelect }) {
   return (
     <div className={`flex flex-col items-center justify-center `}>
       <div className="relative flex justify-center items-center border-2 border-teal-500 rounded-md p-2 w-full">
-        <img src={template.design} alt={template.name} className="w-full" />
-
+        {/* <img src={template.design} alt={template.name} className="w-full" /> */}
+        <div dangerouslySetInnerHTML={{ __html: template.content }} />
         <div
           className={`absolute flex justify-center items-center rounded-sm p-2 w-full h-full opacity-20 ${
             isHovered ? 'bg-violet-500' : '' // Add a background color when hovered
