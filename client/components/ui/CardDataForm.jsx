@@ -28,7 +28,7 @@ function CardDataForm({ onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(true);
+    onSubmit(formData);
   };
 
   return (
