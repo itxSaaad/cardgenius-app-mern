@@ -3,20 +3,58 @@ import Head from 'next/head';
 import { useState } from 'react';
 
 import Loader from '@/components/ui/Loader';
+import ProgressBar from '@/components/ui/ProgressBar';
 
-const CardDataForm = dynamic(() => import('@/components/ui/CardDataForm'), {
-  loading: () => <Loader />,
-});
+const FormStep = dynamic(
+  () => import('@/components/generation-steps/FormStep'),
+  {
+    loading: () => <Loader />,
+  }
+);
+const PreviewStep = dynamic(
+  () => import('@/components/generation-steps/PreviewStep'),
+  {
+    loading: () => <Loader />,
+  }
+);
+const TemplateStep = dynamic(
+  () => import('@/components/generation-steps/TemplateStep'),
+  {
+    loading: () => <Loader />,
+  }
+);
 const Card = dynamic(() => import('@/components/ui/Card'), {
   loading: () => <Loader />,
 });
 
-function GenerateCardPage() {
-  const [submitted, setSubmitted] = useState(false);
+const DUMMY_TEMPLATES = [
+  {
+    id: 1,
+    name: 'Blue Accent',
+    design: '/templates/temp1.svg',
+  },
+  {
+    id: 2,
+    name: 'Green Accent',
+    design: '/templates/temp1.svg',
+  },
+  {
+    id: 3,
+    name: 'Red Accent',
+    design: '/templates/temp1.svg',
+  },
+  {
+    id: 4,
+    name: 'Gray Accent',
+    design: '/templates/temp1.svg',
+  },
+];
 
-  const handleFormSubmit = () => {
-    setSubmitted(true);
-  };
+function GenerateCardPage() {
+  const [steps, setSteps] = useState(2);
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const totalSteps = 3;
+
   return (
     <>
       <Head>
@@ -33,39 +71,31 @@ function GenerateCardPage() {
       </Head>
 
       <section className="min-h-screen bg-gradient-to-b from-teal-600 to-teal-500 text-white flex flex-col sm:flex-row justify-center items-center relative overflow-hidden py-20 px-10 sm:p-24">
-        <Card className="divide-x-4 divide-violet-600 flex flex-col-reverse sm:flex-row items-center justify-evenly p-6">
-          {submitted ? (
-            <div>templates</div>
-          ) : (
-            <>
-              <div className="sm:w-1/2 m-2">
-                <CardDataForm onSubmit={handleFormSubmit} />
-              </div>
+        <div className="absolute bottom-0 right-0 w-40 h-40 bg-white transform rotate-45 rounded-md translate-y-12 translate-x-12 opacity-40" />
+        <div className="absolute top-0 left-0 w-40 h-40 bg-white transform rotate-45 rounded-md -translate-y-12 -translate-x-12 opacity-40" />
 
-              <div className="sm:w-1/2 m-2 p-4 text-black">
-                <h1>
-                  <span className="text-2xl text-violet-700 font-bold">
-                    CardGenius
-                  </span>{' '}
-                  is a platform that allows you to create professional ID cards
-                  for your organization, school, or events.
-                </h1>
+        <Card className="flex flex-col items-center justify-center p-6">
+          {steps === 1 && <FormStep setSteps={setSteps} />}
 
-                <p className="mt-4">
-                  You can create ID cards by Filling out the form on the left
-                  side of this page. You can also upload your own image to be
-                  used as the Avatar for the ID card.
-                </p>
-
-                <p className="mt-4">
-                  Once you are done filling out the form, click on the{' '}
-                  <span className="text-violet-700 font-bold">Proceed</span>{' '}
-                  button. You will be redirected to a page where you can Select
-                  the Template for your ID card and then download it.
-                </p>
-              </div>
-            </>
+          {steps === 2 && (
+            <TemplateStep
+              templates={DUMMY_TEMPLATES}
+              setSteps={setSteps}
+              setSelectedTemplate={setSelectedTemplate}
+            />
           )}
+
+          {steps === 3 && (
+            <PreviewStep
+              templates={DUMMY_TEMPLATES}
+              setSteps={setSteps}
+              selectedTemplate={selectedTemplate}
+            />
+          )}
+
+          <div className="relative w-1/2 z-10 p-2">
+            <ProgressBar currentStep={steps} totalSteps={totalSteps} />
+          </div>
         </Card>
       </section>
     </>

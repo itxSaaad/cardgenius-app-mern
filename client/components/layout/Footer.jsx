@@ -6,7 +6,7 @@ function Footer() {
           &copy; {new Date().getFullYear()} CardGenius. All rights reserved.
           Created with ♥ by{' '}
           <a
-            href="https://www.example.com"
+            href="https://bento.me/itxsaaad"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-violet-900"
