@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 import Button from '../ui/Button';
 
@@ -17,7 +17,7 @@ function Jumbotron() {
           organization, school, or events, CardGenius has got you covered.
         </p>
         <div className="flex justify-center">
-          <Link href="/generate-card">
+          <Link to="/generate-card">
             <Button
               variant="outline"
               className="px-6 py-3 md:px-8 md:py-4 rounded-full font-medium text-sm md:text-base lg:text-lg"

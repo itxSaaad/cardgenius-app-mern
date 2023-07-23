@@ -1,8 +1,8 @@
-import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import Button from '../ui/Button';
 import AuthModal from '../ui/AuthModal';
+import Button from '../ui/Button';
 
 function MainNavbar() {
   // For the Dropdown in Nav
@@ -26,12 +26,11 @@ function MainNavbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
+  const userInfo = null;
+
   const logoutHandler = () => {
-    console.log('Logged Out Successfully!');
     setDropIsOpen(!dropIsOpen);
   };
-
-  const userInfo = false;
   return (
     <nav className="fixed bg-white w-screen shadow-none z-50 transition-all duration-500 ease-in-out">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -85,7 +84,7 @@ function MainNavbar() {
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0 flex items-center">
               <Link
-                href="/"
+                to="/"
                 className="text-2xl font-semibold text-violet-600 ml-8 sm:ml-0"
               >
                 CardGenius
@@ -94,21 +93,21 @@ function MainNavbar() {
             <div className="hidden sm:block sm:ml-6">
               <div className="flex space-x-4">
                 <Link
-                  href="/"
+                  to="/"
                   className="block mt-4 lg:inline-block lg:mt-0 p-2 text-violet-500 hover:font-medium hover:text-violet-700"
                 >
                   Home
                 </Link>
 
                 <Link
-                  href="/generate-card"
+                  to="/generate-card"
                   className="block mt-4 lg:inline-block lg:mt-0 p-2 text-violet-500 hover:font-medium hover:text-violet-700"
                 >
                   Generate Card
                 </Link>
 
                 <Link
-                  href="/contact-us"
+                  to="/contact-us"
                   className="block mt-4 lg:inline-block lg:mt-0 p-2 text-violet-500 hover:font-medium hover:text-violet-700"
                 >
                   Contact-Us
@@ -131,14 +130,14 @@ function MainNavbar() {
                   <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="p-1">
                       <Link
-                        href="/admin/dashboard"
+                        to="/admin/dashboard"
                         className="text-teal-500 hover:bg-teal-700 hover:text-white block px-3 py-2 rounded-md text-base hover:font-bold"
                         onClick={() => setDropIsOpen(!dropIsOpen)}
                       >
                         <i className="fas fa-gauge-high mr-2"></i>Dashboard
                       </Link>
                       <Link
-                        href="/profile"
+                        to="/profile"
                         className="text-teal-500 hover:bg-teal-700 hover:text-white block px-3 py-2 rounded-md text-base hover:font-bold"
                         onClick={() => setDropIsOpen(!dropIsOpen)}
                       >
@@ -176,21 +175,21 @@ function MainNavbar() {
       <div className={`${isOpen ? 'block' : 'hidden'} sm:hidden`}>
         <div className="px-2 pt-2 pb-3 space-y-1">
           <Link
-            href="/"
+            to="/"
             className="text-violet-500 hover:text-violet-700 block px-3 py-2 rounded-md text-base hover:font-medium"
             onClick={() => setIsOpen(!isOpen)}
           >
             Home
           </Link>
           <Link
-            href="/generate-card"
+            to="/generate-card"
             className="text-violet-500 hover:text-violet-700 block px-3 py-2 rounded-md text-base hover:font-medium"
             onClick={() => setIsOpen(!isOpen)}
           >
             Generate Card
           </Link>
           <Link
-            href="/contact-us"
+            to="/contact-us"
             className="text-violet-500 hover:text-violet-700 block px-3 py-2 rounded-md text-base hover:font-medium"
             onClick={() => setIsOpen(!isOpen)}
           >

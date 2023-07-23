@@ -1,14 +1,9 @@
-import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
+import React, { useState, useEffect, Suspense } from 'react';
 
 import Loader from './Loader';
 
-const LoginForm = dynamic(() => import('./LoginForm'), {
-  loading: () => <Loader />,
-});
-const RegisterForm = dynamic(() => import('./RegisterForm'), {
-  loading: () => <Loader />,
-});
+const LoginForm = React.lazy(() => import('./LoginForm'));
+const RegisterForm = React.lazy(() => import('./RegisterForm'));
 
 function AuthModal({ onClose }) {
   const [activeForm, setActiveForm] = useState('login');
@@ -39,7 +34,9 @@ function AuthModal({ onClose }) {
     >
       <div className="fixed inset-0 flex items-center justify-center">
         <div className="bg-white w-3/5 md:w-2/5 border-2 border-violet-600 p-4 rounded-lg">
-          {activeForm === 'login' ? <LoginForm /> : <RegisterForm />}
+          <Suspense fallback={<Loader />}>
+            {activeForm === 'login' ? <LoginForm /> : <RegisterForm />}
+          </Suspense>
 
           {activeForm === 'login' ? (
             <p className="text-center text-sm text-violet-400">
