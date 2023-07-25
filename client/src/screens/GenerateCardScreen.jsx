@@ -1,7 +1,9 @@
 import React, { Suspense, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Loader from '../components/ui/Loader';
 import ProgressBar from '../components/ui/ProgressBar';
+import AuthModal from '../components/ui/AuthModal';
 
 const FormStep = React.lazy(() =>
   import('../components/generation-steps/FormStep')
@@ -18,8 +20,12 @@ function GenerateCardScreen() {
   const [steps, setSteps] = useState(1);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const totalSteps = 3;
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(true);
 
   const [temp1, setTemp1] = useState(null);
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   useEffect(() => {
     async function fetchTemplates() {
@@ -63,34 +69,38 @@ function GenerateCardScreen() {
   return (
     <>
       <section className="min-h-screen bg-gradient-to-b from-teal-600 to-teal-500 text-white flex flex-col sm:flex-row justify-center items-center relative overflow-hidden py-20 px-10 sm:p-24">
-        <Suspense fallback={<Loader />}>
-          <div className="absolute bottom-0 right-0 w-40 h-40 bg-white transform rotate-45 rounded-md translate-y-12 translate-x-12 opacity-40" />
-          <div className="absolute top-0 left-0 w-40 h-40 bg-white transform rotate-45 rounded-md -translate-y-12 -translate-x-12 opacity-40" />
+        {userInfo ? (
+          <Suspense fallback={<Loader />}>
+            <div className="absolute bottom-0 right-0 w-40 h-40 bg-white transform rotate-45 rounded-md translate-y-12 translate-x-12 opacity-40" />
+            <div className="absolute top-0 left-0 w-40 h-40 bg-white transform rotate-45 rounded-md -translate-y-12 -translate-x-12 opacity-40" />
 
-          <Card className="flex flex-col items-center justify-center p-6">
-            {steps === 1 && <FormStep setSteps={setSteps} />}
+            <Card className="flex flex-col items-center justify-center p-6">
+              {steps === 1 && <FormStep setSteps={setSteps} />}
 
-            {steps === 2 && (
-              <TemplateStep
-                templates={templates}
-                setSteps={setSteps}
-                setSelectedTemplate={setSelectedTemplate}
-              />
-            )}
+              {steps === 2 && (
+                <TemplateStep
+                  templates={templates}
+                  setSteps={setSteps}
+                  setSelectedTemplate={setSelectedTemplate}
+                />
+              )}
 
-            {steps === 3 && (
-              <PreviewStep
-                templates={templates}
-                setSteps={setSteps}
-                selectedTemplate={selectedTemplate}
-              />
-            )}
+              {steps === 3 && (
+                <PreviewStep
+                  templates={templates}
+                  setSteps={setSteps}
+                  selectedTemplate={selectedTemplate}
+                />
+              )}
 
-            <div className="relative w-1/2 z-10 p-2">
-              <ProgressBar currentStep={steps} totalSteps={totalSteps} />
-            </div>
-          </Card>
-        </Suspense>
+              <div className="relative w-1/2 z-10 p-2">
+                <ProgressBar currentStep={steps} totalSteps={totalSteps} />
+              </div>
+            </Card>
+          </Suspense>
+        ) : (
+          <AuthModal onClose={() => setIsAuthModalOpen(false)} />
+        )}{' '}
       </section>
     </>
   );

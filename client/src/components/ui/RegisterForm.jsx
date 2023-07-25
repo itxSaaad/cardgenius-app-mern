@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Loader from './Loader';
 import Button from './Button';
 import Message from './Message';
+
+import { register } from '../../redux/slices/user/registerUserSlice';
 
 function RegisterForm() {
   const [name, setName] = useState('');
@@ -10,8 +13,18 @@ function RegisterForm() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const dispatch = useDispatch();
+
   const handleRegister = (e) => {
     e.preventDefault();
+    dispatch(
+      register({
+        name,
+        email,
+        password,
+        confirmPassword,
+      })
+    );
   };
 
   return (
@@ -20,7 +33,7 @@ function RegisterForm() {
         <Loader />
       ) : ( */}
       <form onSubmit={handleRegister}>
-        <p className="text-center text-xl leading-relaxed">
+        <p className="text-center text-black text-xl leading-relaxed">
           Create New Account
           <br />
           <span className="text-sm text-violet-500">

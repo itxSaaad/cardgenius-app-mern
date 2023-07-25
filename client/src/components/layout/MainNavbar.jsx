@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { logout } from '../../redux/slices/user/loginUserSlice';
 
 import AuthModal from '../ui/AuthModal';
 import Button from '../ui/Button';
@@ -26,9 +29,13 @@ function MainNavbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
-  const userInfo = null;
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const logoutHandler = () => {
+    dispatch(logout());
     setDropIsOpen(!dropIsOpen);
   };
   return (
@@ -123,7 +130,7 @@ function MainNavbar() {
                   onClick={() => setDropIsOpen(!dropIsOpen)}
                   className="rounded-md"
                 >
-                  John Doe
+                  {userInfo.name}
                   <i className="fas fa-caret-down ml-2"></i>
                 </Button>
                 {dropIsOpen && (
