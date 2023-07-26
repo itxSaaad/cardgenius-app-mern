@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { userDetailsReset } from './detailsUserSlice';
+import { detailsUserReset } from './detailsUserSlice';
 
 const serverUrl =
   `http://localhost:5000` || import.meta.env.VITE_APP_SERVER_URL;
@@ -53,7 +53,7 @@ const loginUserSlice = createSlice({
       state.error = null;
       state.userInfo = null;
       localStorage.removeItem('userInfo');
-      userDetailsReset();
+      detailsUserReset();
     },
   },
   extraReducers: (builder) => {

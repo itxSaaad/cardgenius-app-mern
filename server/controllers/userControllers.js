@@ -112,6 +112,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      token: generateToken(user._id),
       message: 'User Profile Fetched Successfully!',
     });
   } else {

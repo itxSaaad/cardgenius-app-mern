@@ -9,6 +9,7 @@ const GenerateCardScreen = React.lazy(() =>
   import('./screens/GenerateCardScreen')
 );
 const ContactScreen = React.lazy(() => import('./screens/ContactScreen'));
+const ProfileScreen = React.lazy(() => import('./screens/ProfileScreen'));
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/" element={<HomeScreen />} />
             <Route path="/generate-card" element={<GenerateCardScreen />} />
             <Route path="/contact-us" element={<ContactScreen />} />
+            <Route path="/profile" element={<ProfileScreen />} />
           </Routes>
         </Layout>
       </Suspense>

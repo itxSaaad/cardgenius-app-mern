@@ -47,7 +47,7 @@ const detailsUserSlice = createSlice({
       : null,
   },
   reducers: {
-    userDetailsReset: (state) => {
+    detailsUserReset: (state) => {
       state.loading = false;
       state.error = null;
       state.success = false;
@@ -72,6 +72,6 @@ const detailsUserSlice = createSlice({
   },
 });
 
-export const { userDetailsReset } = detailsUserSlice.actions;
+export const { detailsUserReset } = detailsUserSlice.actions;
 
 export default detailsUserSlice.reducer;
