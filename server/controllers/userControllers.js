@@ -113,6 +113,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       email: user.email,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
+      password: user.password,
       message: 'User Profile Fetched Successfully!',
     });
   } else {
@@ -131,44 +132,46 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   if (user) {
     let { name, email, password, confirmPassword } = req.body;
 
-    if (!name || !email || !password || !confirmPassword) {
-      res.status(400);
-      throw new Error('All Fields Are Required!');
-    } else {
-      if (emailValidator.validate(req.body.email)) {
-        const match = await bcrypt.compare(password, user.password);
+    if (emailValidator.validate(req.body.email)) {
+      let match = false;
 
-        if (user.email === email && match) {
+      if (password !== '') {
+        match = await bcrypt.compare(password, user.password);
+      }
+
+      if (user.email === email && match) {
+        res.status(400);
+        throw new Error('You Have Not Made Any Changes!');
+      } else {
+        if (password !== '' && password !== confirmPassword) {
           res.status(400);
-          throw new Error('You Have Not Made Any Changes!');
+          throw new Error('Passwords Do Not Match!');
         } else {
-          if (password !== confirmPassword) {
-            res.status(400);
-            throw new Error('Passwords Do Not Match!');
-          } else {
+          // Update only if the password is not an empty string
+          if (password !== '') {
             const salt = await bcrypt.genSalt(Number(process.env.SALT));
             const hashedPassword = await bcrypt.hash(password, salt);
-
-            user.name = name || user.name;
-            user.email = email || user.email;
-            user.password = hashedPassword || user.password;
-
-            const updatedUser = await user.save();
-
-            res.json({
-              _id: updatedUser._id,
-              name: updatedUser.name,
-              email: updatedUser.email,
-              isAdmin: updatedUser.isAdmin,
-              token: generateToken(updatedUser._id),
-              message: 'User Profile Updated Successfully!',
-            });
+            user.password = hashedPassword;
           }
+
+          user.name = name || user.name;
+          user.email = email || user.email;
+
+          const updatedUser = await user.save();
+
+          res.json({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            isAdmin: updatedUser.isAdmin,
+            token: generateToken(updatedUser._id),
+            message: 'User Profile Updated Successfully!',
+          });
         }
-      } else {
-        res.status(400);
-        throw new Error('Invalid Email Address!');
       }
+    } else {
+      res.status(400);
+      throw new Error('Invalid Email Address!');
     }
   } else {
     res.status(404);

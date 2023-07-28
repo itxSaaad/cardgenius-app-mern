@@ -6,7 +6,7 @@ import Button from './Button';
 import Loader from './Loader';
 import Message from './Message';
 
-import { login } from '../../redux/slices/user/loginUserSlice';
+import { login } from '../../redux/slices/userSlice';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -14,8 +14,8 @@ function LoginForm() {
 
   const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error } = userLogin;
+  const user = useSelector((state) => state.user);
+  const { loading, loginError } = user;
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -40,7 +40,7 @@ function LoginForm() {
             </span>
           </p>
 
-          {error && <Message variant="error">{error}</Message>}
+          {loginError && <Message>{loginError}</Message>}
 
           <div className="w-full my-4">
             <label htmlFor="email" className="sr-only">

@@ -24,8 +24,8 @@ function GenerateCardScreen() {
 
   const [temp1, setTemp1] = useState(null);
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const user = useSelector((state) => state.user);
+  const { userInfo } = user;
 
   useEffect(() => {
     async function fetchTemplates() {
@@ -100,7 +100,7 @@ function GenerateCardScreen() {
           </Suspense>
         ) : (
           <AuthModal onClose={() => setIsAuthModalOpen(false)} />
-        )}{' '}
+        )}
       </section>
     </>
   );

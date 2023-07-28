@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { detailsUser } from '../redux/slices/user/detailsUserSlice';
+import { detailsUser } from '../redux/slices/userSlice';
 
 import Button from '../components/ui/Button';
 import Loader from '../components/ui/Loader';
@@ -15,30 +15,31 @@ function ProfileScreen() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(detailsUser());
+    dispatch(detailsUser({}));
   }, [dispatch]);
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { loading: userLoading, error: userError, userInfo } = userLogin;
+  const user = useSelector((state) => state.user);
+  const { loading, detailsUserError, updateProfileSuccess, userInfo } = user;
 
-  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
-  const { success } = userUpdateProfile;
-
-  const userDetails = useSelector((state) => state.userDetails);
-  const { loading, error, userInfo: user } = userDetails;
-
-  const successMessage = success && {
+  const successMessage = updateProfileSuccess && {
     status: '200',
     message: 'Updated Successfully!',
   };
 
+  useEffect(() => {
+    if (updateProfileSuccess) {
+      setIsEditing(false);
+      dispatch(detailsUser({}));
+    }
+  }, [dispatch, updateProfileSuccess]);
+
   return (
     <section className="min-h-screen flex flex-row justify-center items-center bg-teal-600 text-white py-20">
       <div className="mx-auto max-w-screen-xl w-full flex flex-col justify-center items-center px-4 sm:px-8 lg:px-6">
-        {userLoading || loading ? (
+        {loading ? (
           <Loader />
-        ) : userError || error ? (
-          <Message variant="danger">{userError || error}</Message>
+        ) : detailsUserError ? (
+          <Message variant="danger">{detailsUserError}</Message>
         ) : (
           <>
             <h1 className="text-4xl text-center font-bold mb-4">
@@ -57,9 +58,9 @@ function ProfileScreen() {
               <Message variant="success">{successMessage}</Message>
             )}
             {isEditing ? (
-              <EditProfileForm user={user} setIsEditing={setIsEditing} />
+              <EditProfileForm setIsEditing={setIsEditing} />
             ) : (
-              <ProfileCard user={user} setIsEditing={setIsEditing} />
+              <ProfileCard user={userInfo} setIsEditing={setIsEditing} />
             )}
           </>
         )}

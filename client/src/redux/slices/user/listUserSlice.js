@@ -33,14 +33,16 @@ export const listUsers = createAsyncThunk(
   }
 );
 
+const initialState = {
+  loading: false,
+  error: null,
+  success: false,
+  users: [],
+};
+
 const listUserSlice = createSlice({
   name: 'userList',
-  initialState: {
-    loading: false,
-    error: null,
-    success: false,
-    users: [],
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

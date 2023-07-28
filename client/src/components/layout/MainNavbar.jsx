@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { logout } from '../../redux/slices/user/loginUserSlice';
+import { logout } from '../../redux/slices/userSlice';
 
 import AuthModal from '../ui/AuthModal';
 import Button from '../ui/Button';
@@ -31,8 +31,8 @@ function MainNavbar() {
 
   const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const user = useSelector((state) => state.user);
+  const { userInfo } = user;
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -136,13 +136,15 @@ function MainNavbar() {
                 {dropIsOpen && (
                   <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="p-1">
-                      <Link
-                        to="/admin/dashboard"
-                        className="text-teal-500 hover:bg-teal-700 hover:text-white block px-3 py-2 rounded-md text-base hover:font-bold"
-                        onClick={() => setDropIsOpen(!dropIsOpen)}
-                      >
-                        <i className="fas fa-gauge-high mr-2"></i>Dashboard
-                      </Link>
+                      {userInfo.isAdmin && (
+                        <Link
+                          to="/admin/dashboard"
+                          className="text-teal-500 hover:bg-teal-700 hover:text-white block px-3 py-2 rounded-md text-base hover:font-bold"
+                          onClick={() => setDropIsOpen(!dropIsOpen)}
+                        >
+                          <i className="fas fa-gauge-high mr-2"></i>Dashboard
+                        </Link>
+                      )}
                       <Link
                         to="/profile"
                         className="text-teal-500 hover:bg-teal-700 hover:text-white block px-3 py-2 rounded-md text-base hover:font-bold"
