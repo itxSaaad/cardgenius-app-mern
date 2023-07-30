@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const connectDb = async () => {
   try {
     // mongoose.set('strictQuery', false);
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
+    const conn = await mongoose.connect(`${process.env.MONGO_URI}`, {
       // The following are to prevent warnings in the console
       useNewUrlParser: true,
       useUnifiedTopology: true,
