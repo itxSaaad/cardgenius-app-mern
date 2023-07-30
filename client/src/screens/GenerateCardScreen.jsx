@@ -1,9 +1,10 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
+import AuthModal from '../components/ui/Auth/AuthModal';
 import Loader from '../components/ui/Loader';
-import ProgressBar from '../components/ui/ProgressBar';
-import AuthModal from '../components/ui/AuthModal';
+import ProgressBar from '../components/generation-steps/ProgressBar';
 
 const FormStep = React.lazy(() =>
   import('../components/generation-steps/FormStep')
@@ -23,6 +24,7 @@ function GenerateCardScreen() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(true);
 
   const [temp1, setTemp1] = useState(null);
+  const navigate = useNavigate();
 
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
@@ -66,6 +68,14 @@ function GenerateCardScreen() {
     },
   ];
 
+  useEffect(() => {
+    if (!userInfo) {
+      setIsAuthModalOpen(true);
+    } else {
+      setIsAuthModalOpen(false);
+    }
+  }, [userInfo]);
+
   return (
     <>
       <section className="min-h-screen bg-gradient-to-b from-teal-600 to-teal-500 text-white flex flex-col sm:flex-row justify-center items-center relative overflow-hidden py-20 px-10 sm:p-24">
@@ -99,7 +109,12 @@ function GenerateCardScreen() {
             </Card>
           </Suspense>
         ) : (
-          <AuthModal onClose={() => setIsAuthModalOpen(false)} />
+          <AuthModal
+            onClose={() => {
+              setIsAuthModalOpen(false);
+              navigate('/');
+            }}
+          />
         )}
       </section>
     </>

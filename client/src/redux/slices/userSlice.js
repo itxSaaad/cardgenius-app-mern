@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const serverUrl =
-  `http://localhost:5000` || import.meta.env.VITE_APP_SERVER_URL;
+const serverUrl = import.meta.env.VITE_SERVER_URL;
 
 export const login = createAsyncThunk(
   'user/login',

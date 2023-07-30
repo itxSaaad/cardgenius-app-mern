@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Suspense } from 'react';
 
-import Loader from './Loader';
+import Loader from '../Loader';
 
 const LoginForm = React.lazy(() => import('./LoginForm'));
 const RegisterForm = React.lazy(() => import('./RegisterForm'));

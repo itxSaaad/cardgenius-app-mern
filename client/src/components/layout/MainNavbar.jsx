@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { logout } from '../../redux/slices/userSlice';
 
-import AuthModal from '../ui/AuthModal';
+import AuthModal from '../ui/Auth/AuthModal';
 import Button from '../ui/Button';
 
 function MainNavbar() {

@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 
 import Loader from '../ui/Loader';
 
-const CardDataForm = React.lazy(() => import('../ui/CardDataForm'));
+const CardDataForm = React.lazy(() => import('./CardDataForm'));
 
 function FormStep({ setSteps }) {
   const handleFormSubmit = (formData) => {

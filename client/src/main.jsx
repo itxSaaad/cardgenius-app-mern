@@ -21,6 +21,9 @@ const GenerateCardScreen = React.lazy(() =>
 );
 const ContactScreen = React.lazy(() => import('./screens/ContactScreen.jsx'));
 const ProfileScreen = React.lazy(() => import('./screens/ProfileScreen.jsx'));
+const DashboardScreen = React.lazy(() =>
+  import('./screens/DashboardScreen.jsx')
+);
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +32,7 @@ const router = createBrowserRouter(
       <Route path="/generate-card" element={<GenerateCardScreen />} />
       <Route path="/contact-us" element={<ContactScreen />} />
       <Route path="/profile" element={<ProfileScreen />} />
+      <Route path="/admin/dashboard" element={<DashboardScreen />} />
     </Route>
   )
 );

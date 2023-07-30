@@ -1,4 +1,4 @@
-import RegisterForm from '../ui/RegisterForm';
+import RegisterForm from '../ui/Auth/RegisterForm';
 
 function GetStarted() {
   return (

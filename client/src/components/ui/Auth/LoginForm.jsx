@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import Button from './Button';
-import Loader from './Loader';
-import Message from './Message';
+import Button from '../Button';
+import Loader from '../Loader';
+import Message from '../Message';
 
-import { login } from '../../redux/slices/userSlice';
+import { login } from '../../../redux/slices/userSlice';
 
 function LoginForm() {
   const [email, setEmail] = useState('');

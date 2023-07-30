@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Loader from './Loader';
-import Button from './Button';
-import Message from './Message';
+import Loader from '../Loader';
+import Button from '../Button';
+import Message from '../Message';
 
-import { register } from '../../redux/slices/userSlice';
+import { register } from '../../../redux/slices/userSlice';
 
 function RegisterForm() {
   const [name, setName] = useState('');
