@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import AuthModal from '../components/ui/Auth/AuthModal';
 import MainContent from '../components/ui/Dashboard/MainContent';
 import SideBar from '../components/ui/Dashboard/SideBar';
+import Loader from '../components/ui/Loader';
+
+import { listUsers } from '../redux/slices/userSlice';
 
 function DashboardScreen() {
   const menuItems = [
@@ -27,6 +30,7 @@ function DashboardScreen() {
   const [collapsible, setCollapsible] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
@@ -39,8 +43,9 @@ function DashboardScreen() {
       if (!userInfo.isAdmin) {
         navigate('/');
       }
+      dispatch(listUsers({}));
     }
-  }, [navigate, userInfo]);
+  }, [navigate, dispatch, userInfo]);
 
   const toggleSidebar = () => {
     setCollapsible((prevState) => !prevState);

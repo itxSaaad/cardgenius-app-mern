@@ -140,18 +140,50 @@ export const detailsUser = createAsyncThunk(
   }
 );
 
+export const listUsers = createAsyncThunk(
+  'user/listUsers',
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const {
+        user: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.get(`${serverUrl}/api/users`, config);
+
+      return data;
+    } catch (error) {
+      return rejectWithValue({
+        status: error.response && error.response.status,
+        message:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  }
+);
+
 const initialState = {
   userInfo: localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
     : null,
+  users: [],
   loginError: null,
   registerError: null,
   updateProfileError: null,
+  listUsersError: null,
   detailsUserError: null,
   loginSuccess: false,
   registerSuccess: false,
   updateProfileSuccess: false,
   detailsUserSuccess: false,
+  listUsersSuccess: false,
   loading: false,
 };
 
@@ -218,6 +250,18 @@ const userSlice = createSlice({
       .addCase(detailsUser.rejected, (state, action) => {
         state.loading = false;
         state.detailsUserError = action.payload;
+      })
+      .addCase(listUsers.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(listUsers.fulfilled, (state, action) => {
+        state.loading = false;
+        state.listUsersSuccess = true;
+        state.users = action.payload;
+      })
+      .addCase(listUsers.rejected, (state, action) => {
+        state.loading = false;
+        state.listUsersError = action.payload;
       });
   },
 });

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { detailsUser } from '../redux/slices/userSlice';
 
@@ -13,13 +14,14 @@ function ProfileScreen() {
   const [isEditing, setIsEditing] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const user = useSelector((state) => state.user);
+  const { loading, detailsUserError, updateProfileSuccess, userInfo } = user;
 
   useEffect(() => {
     dispatch(detailsUser({}));
   }, [dispatch]);
-
-  const user = useSelector((state) => state.user);
-  const { loading, detailsUserError, updateProfileSuccess, userInfo } = user;
 
   const successMessage = updateProfileSuccess && {
     status: '200',
@@ -35,36 +37,45 @@ function ProfileScreen() {
 
   return (
     <section className="min-h-screen flex flex-row justify-center items-center bg-teal-600 text-white py-20">
-      <div className="mx-auto max-w-screen-xl w-full flex flex-col justify-center items-center px-4 sm:px-8 lg:px-6">
-        {loading ? (
-          <Loader />
-        ) : detailsUserError ? (
-          <Message variant="danger">{detailsUserError}</Message>
-        ) : (
-          <>
-            <h1 className="text-4xl text-center font-bold mb-4">
-              User Profile
-            </h1>
-            <Button
-              variant="success"
-              className={`${isEditing ? 'hidden' : 'block'} rounded-md mb-4`}
-              onClick={() => {
-                setIsEditing(!isEditing);
-              }}
-            >
-              Edit Profile
-            </Button>
-            {successMessage && (
-              <Message variant="success">{successMessage}</Message>
-            )}
-            {isEditing ? (
-              <EditProfileForm setIsEditing={setIsEditing} />
-            ) : (
-              <ProfileCard user={userInfo} setIsEditing={setIsEditing} />
-            )}
-          </>
-        )}
-      </div>
+      {!userInfo ? (
+        <AuthModal
+          onClose={() => {
+            setIsAuthModalOpen(false);
+            navigate('/');
+          }}
+        />
+      ) : (
+        <div className="mx-auto max-w-screen-xl w-full flex flex-col justify-center items-center px-4 sm:px-8 lg:px-6">
+          {loading ? (
+            <Loader />
+          ) : detailsUserError ? (
+            <Message variant="danger">{detailsUserError}</Message>
+          ) : (
+            <>
+              <h1 className="text-4xl text-center font-bold mb-4">
+                User Profile
+              </h1>
+              <Button
+                variant="success"
+                className={`${isEditing ? 'hidden' : 'block'} rounded-md mb-4`}
+                onClick={() => {
+                  setIsEditing(!isEditing);
+                }}
+              >
+                Edit Profile
+              </Button>
+              {successMessage && (
+                <Message variant="success">{successMessage}</Message>
+              )}
+              {isEditing ? (
+                <EditProfileForm setIsEditing={setIsEditing} />
+              ) : (
+                <ProfileCard user={userInfo} setIsEditing={setIsEditing} />
+              )}
+            </>
+          )}
+        </div>
+      )}
     </section>
   );
 }
