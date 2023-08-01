@@ -8,6 +8,7 @@ import SideBar from '../components/ui/Dashboard/SideBar';
 import Loader from '../components/ui/Loader';
 
 import { listUsers } from '../redux/slices/userSlice';
+import { listForms } from '../redux/slices/formSlice';
 
 function DashboardScreen() {
   const menuItems = [
@@ -44,6 +45,7 @@ function DashboardScreen() {
         navigate('/');
       }
       dispatch(listUsers({}));
+      dispatch(listForms({}));
     }
   }, [navigate, dispatch, userInfo]);
 

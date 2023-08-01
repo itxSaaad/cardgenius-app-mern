@@ -18,7 +18,7 @@ const TemplateStep = React.lazy(() =>
 const Card = React.lazy(() => import('../components/ui/Card'));
 
 function GenerateCardScreen() {
-  const [steps, setSteps] = useState(1);
+  const [steps, setSteps] = useState(2);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const totalSteps = 3;
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(true);

@@ -74,11 +74,7 @@ const deleteForm = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 
 const getAllForms = asyncHandler(async (req, res) => {
-  const idCardCredentials = await IDCardCredential.find({}).populate(
-    'user',
-    'id name'
-  );
-
+  const idCardCredentials = await IDCardCredential.find({});
   if (idCardCredentials) {
     res.json(idCardCredentials);
   } else {
