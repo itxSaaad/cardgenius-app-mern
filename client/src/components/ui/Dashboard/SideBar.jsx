@@ -8,7 +8,7 @@ function SideBar({
 }) {
   return (
     <div
-      className={`bg-teal-700 min-h-screen w-full sm:w-1/6 flex flex-col items-center justify-center shadow-md p-4 transform ${
+      className={`bg-teal-700 min-h-screen w-full sm:w-1/6 flex flex-col items-center justify-start shadow-md pt-20 p-4 transform ${
         collapsible ? 'translate-x-0' : '-translate-x-full'
       } transition-all duration-300 ease-in-out`}
     >
@@ -23,7 +23,7 @@ function SideBar({
             <li key={index} className="mb-3">
               <button
                 onClick={() => handleMenuItemClick(item.name)}
-                className={`flex flex-row items-center border border-teal-600 text-white w-full px-3 py-2 rounded-md text-base hover:font-bold ${
+                className={`flex flex-row items-center justify-center border border-teal-600 text-white w-full px-3 py-2 rounded-md text-base hover:font-bold ${
                   activeMenuItem === item.name
                     ? 'bg-teal-900'
                     : 'hover:bg-teal-900'

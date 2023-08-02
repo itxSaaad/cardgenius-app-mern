@@ -12,9 +12,6 @@ function MainContent({
   collapsible,
   onToggleSidebar,
 }) {
-  const userColumns = ['_id', 'name', 'email', 'isAdmin'];
-  const formColumns = ['_id', 'name', 'email', 'phone', 'address', 'idImage'];
-
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
 

@@ -4,15 +4,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getUserById } from '../../../redux/slices/userSlice';
 
 import Card from '../Card';
+import Loader from '../Loader';
 
 function Home() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
-  const { users, userInfoById } = user;
+  const { loading, users, userInfoById } = user;
 
   const form = useSelector((state) => state.form);
-  const { forms } = form;
+  const { loading: loadingForms, forms } = form;
 
   // Get the current date
   const currentDate = new Date();
@@ -96,75 +97,56 @@ function Home() {
       return maxFormsUser;
     };
 
-    console.log(findMaxFormsUser());
-
     if (findMaxFormsUser() !== null) {
       dispatch(getUserById(findMaxFormsUser()));
     }
   }, [dispatch, forms]);
 
+  const CardsList = [
+    {
+      title: 'Users Created Today!',
+      count: usersCreatedToday.length,
+    },
+    {
+      title: 'Users Created This Week!',
+      count: usersCreatedThisWeek.length,
+    },
+    {
+      title: 'Users Created This Month!',
+      count: usersCreatedThisMonth.length,
+    },
+    {
+      title: 'Forms Created Today!',
+      count: formsCreatedToday.length,
+    },
+    {
+      title: 'Forms Created This Week!',
+      count: formsCreatedThisWeek.length,
+    },
+    {
+      title: 'Forms Created This Month!',
+      count: formsCreatedThisMonth.length,
+    },
+    {
+      title: 'User With Most Forms',
+      count: userInfoById ? userInfoById.name : 'No User',
+    },
+  ];
+
   return (
     <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
-      <Card className="text-center p-2 m-2">
-        <p className="text-violet-500 text-5xl font-bold">
-          {usersCreatedToday.length}
-        </p>
-        <h1 className="font-regular text-md text-teal-500 mt-2">
-          Users Created Today!
-        </h1>
-      </Card>
-      <Card className="text-center p-2  m-2">
-        <p className="text-violet-500 text-5xl font-bold">
-          {usersCreatedThisWeek.length}
-        </p>
-        <h1 className="font-regular text-md text-teal-500 mt-2">
-          Users Created This Week!
-        </h1>
-      </Card>
-      <Card className="text-center p-2 m-2">
-        <p className="text-violet-500 text-5xl font-bold">
-          {usersCreatedThisMonth.length}
-        </p>
-        <h1 className="font-regular text-md text-teal-500 mt-2">
-          Users Created This Month!
-        </h1>
-      </Card>
-      <Card className="text-center p-2 m-2">
-        <p className="text-violet-500 text-5xl font-bold">
-          {formsCreatedToday.length}
-        </p>
-        <h1 className="font-regular text-md text-teal-500 mt-2">
-          Forms Created Today!
-        </h1>
-      </Card>
-      <Card className="text-center p-2 m-2">
-        <p className="text-violet-500 text-5xl font-bold">
-          {formsCreatedThisWeek.length}
-        </p>
-        <h1 className="font-regular text-md text-teal-500 mt-2">
-          Forms Created This Week!
-        </h1>
-      </Card>
-      <Card className="text-center p-2 m-2">
-        <p className="text-violet-500 text-5xl font-bold">
-          {formsCreatedThisMonth.length}
-        </p>
-        <h1 className="font-regular text-md text-teal-500 mt-2">
-          Forms Created This Month!
-        </h1>
-      </Card>
-      <Card className="text-center p-2 m-2">
-        {userInfoById === null ? (
-          <p className="text-violet-500 text-5xl font-bold">No User</p>
-        ) : (
-          <p className="text-violet-500 text-5xl font-bold">
-            {userInfoById.name}
-          </p>
-        )}
-        <h1 className="font-regular text-md text-teal-500 mt-2">
-          User With Most Forms!
-        </h1>
-      </Card>
+      {CardsList.map((card, index) => (
+        <Card key={index} className="text-center p-2 m-2">
+          {loading || loadingForms ? (
+            <Loader />
+          ) : (
+            <p className="text-violet-500 text-5xl font-bold">{card.count}</p>
+          )}
+          <h1 className="font-regular text-md text-teal-500 mt-2">
+            {card.title}
+          </h1>
+        </Card>
+      ))}
     </div>
   );
 }
