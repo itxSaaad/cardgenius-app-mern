@@ -1,41 +1,16 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
 
-const serverUrl = import.meta.env.VITE_SERVER_URL;
-
-export const listForms = createAsyncThunk(
-  'form/listForms',
-  async (_, { getState, rejectWithValue }) => {
-    const {
-      user: { userInfo },
-    } = getState();
-
-    try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      };
-
-      const { data } = await axios.get(`${serverUrl}/api/forms`, config);
-
-      return data;
-    } catch (error) {
-      return rejectWithValue({
-        status: error.response && error.response.status,
-        message:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      });
-    }
-  }
-);
+import { createForm, listForms, deleteForm } from '../thunks/formThunks';
 
 const initialState = {
   forms: [],
+  createdForm: null,
   loading: false,
+  createFormError: null,
   listFormsError: null,
+  deleteFormError: null,
+  createFormSuccess: false,
+  deleteFormSuccess: false,
   listFormsSuccess: false,
 };
 
@@ -49,6 +24,18 @@ const formSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(createForm.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createForm.fulfilled, (state, action) => {
+        state.loading = false;
+        state.createFormSuccess = true;
+        state.createdForm = action.payload;
+      })
+      .addCase(createForm.rejected, (state, action) => {
+        state.loading = false;
+        state.createFormError = action.payload;
+      })
       .addCase(listForms.pending, (state) => {
         state.loading = true;
       })
@@ -60,6 +47,17 @@ const formSlice = createSlice({
       .addCase(listForms.rejected, (state, action) => {
         state.loading = false;
         state.listFormsError = action.payload;
+      })
+      .addCase(deleteForm.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteForm.fulfilled, (state) => {
+        state.loading = false;
+        state.deleteFormSuccess = true;
+      })
+      .addCase(deleteForm.rejected, (state, action) => {
+        state.loading = false;
+        state.deleteFormError = action.payload;
       });
   },
 });

@@ -6,7 +6,7 @@ import Button from '../Button';
 import Loader from '../Loader';
 import Message from '../Message';
 
-import { login } from '../../../redux/slices/userSlice';
+import { login } from '../../../redux/thunks/userThunks';
 
 function LoginForm() {
   const [email, setEmail] = useState('');

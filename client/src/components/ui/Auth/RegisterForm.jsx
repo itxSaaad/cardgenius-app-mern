@@ -5,7 +5,7 @@ import Loader from '../Loader';
 import Button from '../Button';
 import Message from '../Message';
 
-import { register } from '../../../redux/slices/userSlice';
+import { register } from '../../../redux/thunks/userThunks';
 
 function RegisterForm() {
   const [name, setName] = useState('');

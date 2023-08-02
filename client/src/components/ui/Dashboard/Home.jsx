@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getUserById } from '../../../redux/slices/userSlice';
+import { getUserById } from '../../../redux/thunks/userThunks';
 
 import Card from '../Card';
 import Loader from '../Loader';

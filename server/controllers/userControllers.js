@@ -234,38 +234,20 @@ const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
   if (user) {
-    let { name, email, isAdmin } = req.body;
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin =
+      req.body.isAdmin === undefined ? user.isAdmin : req.body.isAdmin;
 
-    if (!name || !email) {
-      res.status(400);
-      throw new Error('All Fields Are Required!');
-    } else {
-      if (emailValidator.validate(req.body.email)) {
-        const match = await bcrypt.compare(password, user.password);
+    const updatedUser = await user.save();
 
-        if (user.email === email && match) {
-          res.status(400);
-          throw new Error('You Have Not Made Any Changes!');
-        } else {
-          user.name = name || user.name;
-          user.email = email || user.email;
-          user.isAdmin = isAdmin;
-
-          const updatedUser = await user.save();
-
-          res.json({
-            _id: updatedUser._id,
-            name: updatedUser.name,
-            email: updatedUser.email,
-            isAdmin: updatedUser.isAdmin,
-            message: 'User Updated Successfully!',
-          });
-        }
-      } else {
-        res.status(400);
-        throw new Error('Invalid Email Address!');
-      }
-    }
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      message: 'User Updated Successfully!',
+    });
   } else {
     res.status(404);
     throw new Error('User Not Found!');

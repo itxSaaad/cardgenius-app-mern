@@ -1,7 +1,6 @@
 const asyncHandler = require('express-async-handler');
 
 const IDCardCredential = require('../schemas/idCredentialsSchema');
-const upload = require('../middlewares/imageUploadMiddleware');
 
 // @desc    Get ID card credentials by ID
 // @route   GET /api/forms/:id
@@ -52,7 +51,7 @@ const createForm = asyncHandler(async (req, res) => {
 });
 
 // @desc    Delete ID card credentials
-// @route   GET /api/forms/:id
+// @route   DELETE /api/forms/:id
 // @access  Private/Admin
 
 const deleteForm = asyncHandler(async (req, res) => {

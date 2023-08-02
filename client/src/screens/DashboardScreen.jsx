@@ -6,8 +6,8 @@ import AuthModal from '../components/ui/Auth/AuthModal';
 import MainContent from '../components/ui/Dashboard/MainContent';
 import SideBar from '../components/ui/Dashboard/SideBar';
 
-import { listForms } from '../redux/slices/formSlice';
-import { listUsers } from '../redux/slices/userSlice';
+import { listForms } from '../redux/thunks/formThunks';
+import { listUsers } from '../redux/thunks/userThunks';
 
 function DashboardScreen() {
   const menuItems = [

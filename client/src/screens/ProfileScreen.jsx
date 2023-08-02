@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { detailsUser } from '../redux/slices/userSlice';
+import { detailsUser } from '../redux/thunks/userThunks';
 
 import Button from '../components/ui/Button';
 import Loader from '../components/ui/Loader';

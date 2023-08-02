@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateProfile } from '../../../redux/slices/userSlice';
+import { updateProfile } from '../../../redux/thunks/userThunks';
 
 import Button from '../Button';
 import Message from '../Message.jsx';
