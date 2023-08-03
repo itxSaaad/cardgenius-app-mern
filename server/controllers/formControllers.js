@@ -25,6 +25,8 @@ const createForm = asyncHandler(async (req, res) => {
   const { name, email, phone, address } = req.body;
   const userId = req.user._id;
 
+  console.log(req.file);
+
   // req.file contains the uploaded image information
   if (!req.file) {
     res.status(400);

@@ -5,7 +5,7 @@ const serverUrl = import.meta.env.VITE_SERVER_URL;
 
 export const createForm = createAsyncThunk(
   'form/createForm',
-  async (form, { getState, rejectWithValue }) => {
+  async (formData, { getState, rejectWithValue }) => {
     try {
       const {
         user: { userInfo },
@@ -13,12 +13,23 @@ export const createForm = createAsyncThunk(
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${userInfo.token}`,
         },
       };
 
-      const { data } = await axios.post(`${serverUrl}/api/forms`, form, config);
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone);
+      formDataToSend.append('address', formData.address);
+      formDataToSend.append('idImage', formData.idImage);
+
+      const { data } = await axios.post(
+        `${serverUrl}/api/forms`,
+        formDataToSend,
+        config
+      );
 
       return data;
     } catch (error) {

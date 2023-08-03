@@ -104,7 +104,7 @@ function Home() {
     if (findMaxFormsUser() !== null) {
       dispatch(getUserById(findMaxFormsUser()));
     }
-  }, [dispatch, forms]);
+  }, [dispatch, forms, users]);
 
   const CardsList = [
     {

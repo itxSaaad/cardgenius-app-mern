@@ -1,14 +1,29 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Loader from '../ui/Loader';
+import Message from '../ui/Message';
+
+import { createForm } from '../../redux/thunks/formThunks';
 
 const CardDataForm = React.lazy(() => import('./CardDataForm'));
 
 function FormStep({ setSteps }) {
+  const dispatch = useDispatch();
+
+  const form = useSelector((state) => state.form);
+  const { loading, createFormError, createFormSuccess } = form;
+
   const handleFormSubmit = (formData) => {
     console.log(formData);
-    setSteps((prev) => prev + 1);
+    dispatch(createForm(formData));
   };
+
+  useEffect(() => {
+    if (createFormSuccess) {
+      setSteps((prev) => prev + 1);
+    }
+  }, [createFormSuccess, setSteps, dispatch]);
 
   return (
     <Suspense fallback={<Loader />}>
@@ -18,7 +33,14 @@ function FormStep({ setSteps }) {
         </h1>
         <div className="divide-x-4 divide-violet-600 flex flex-col-reverse sm:flex-row items-center justify-evenly">
           <div className="sm:w-1/2 m-2">
-            <CardDataForm onSubmit={handleFormSubmit} />
+            {loading ? (
+              <Loader />
+            ) : (
+              <>
+                {createFormError && <Message>{createFormError}</Message>}
+                <CardDataForm onSubmit={handleFormSubmit} />
+              </>
+            )}
           </div>
 
           <div className="sm:w-1/2 m-2 p-4 text-black">

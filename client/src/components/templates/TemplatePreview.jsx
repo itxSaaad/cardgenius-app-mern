@@ -28,13 +28,7 @@ const updateSvgContent = (svgContent, userData) => {
 };
 
 function TemplatePreview(props) {
-  const userData = {
-    name: 'John Doe',
-    email: 'john@example.com',
-    phone: '1234567890',
-    address: '123, Lorem Ipsum, Dolor Sit Amet',
-    idImage: 'https://i.imgur.com/7lIh6tY.png',
-  };
+  console.log(props);
 
   useEffect(() => {
     const template = props.templates.find(
@@ -42,7 +36,10 @@ function TemplatePreview(props) {
     );
 
     if (template) {
-      const svgContent = updateSvgContent(template.content, userData);
+      const svgContent = updateSvgContent(
+        template.content,
+        props.userData.idCardCredential
+      );
       props.setSvgContent(svgContent);
     }
   }, [props.selectedTemplate, props.templates]);
