@@ -5,6 +5,7 @@ import { getUserById } from '../../../redux/thunks/userThunks';
 
 import Card from '../Card';
 import Loader from '../Loader';
+import Message from '../Message';
 
 function Home() {
   const dispatch = useDispatch();
@@ -13,7 +14,10 @@ function Home() {
   const { loading, users, userInfoById } = user;
 
   const form = useSelector((state) => state.form);
-  const { loading: loadingForms, forms } = form;
+  const { loading: loadingForms, listFormsError, forms } = form;
+
+  const totalUsers = users.length;
+  const totalForms = forms.length;
 
   // Get the current date
   const currentDate = new Date();
@@ -104,6 +108,14 @@ function Home() {
 
   const CardsList = [
     {
+      title: 'Total Users',
+      count: totalUsers,
+    },
+    {
+      title: 'Total Forms',
+      count: totalForms,
+    },
+    {
       title: 'Users Created Today!',
       count: usersCreatedToday.length,
     },
@@ -135,18 +147,26 @@ function Home() {
 
   return (
     <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
-      {CardsList.map((card, index) => (
-        <Card key={index} className="text-center p-2 m-2">
-          {loading || loadingForms ? (
-            <Loader />
-          ) : (
-            <p className="text-violet-500 text-5xl font-bold">{card.count}</p>
-          )}
-          <h1 className="font-regular text-md text-teal-500 mt-2">
-            {card.title}
-          </h1>
-        </Card>
-      ))}
+      {listFormsError ? (
+        <Message>{listFormsError}</Message>
+      ) : (
+        <>
+          {CardsList.map((card, index) => (
+            <Card key={index} className="text-center p-2 m-2 ">
+              {loading || loadingForms ? (
+                <Loader />
+              ) : (
+                <p className="text-violet-500 text-5xl font-bold truncate truncate-middle">
+                  {card.count}
+                </p>
+              )}
+              <h1 className="font-regular text-md text-teal-500 mt-2 truncate truncate-middle">
+                {card.title}
+              </h1>
+            </Card>
+          ))}
+        </>
+      )}
     </div>
   );
 }

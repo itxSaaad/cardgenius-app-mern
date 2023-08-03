@@ -7,6 +7,7 @@ import { detailsUser } from '../redux/thunks/userThunks';
 import Button from '../components/ui/Button';
 import Loader from '../components/ui/Loader';
 import Message from '../components/ui/Message';
+import AuthModal from '../components/ui/Auth/AuthModal';
 import EditProfileForm from '../components/ui/Profile/EditProfileForm';
 import ProfileCard from '../components/ui/Profile/ProfileCard';
 

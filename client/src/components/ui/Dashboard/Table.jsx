@@ -27,7 +27,7 @@ function Table({ data, columns, handleDelete, handleChange }) {
                       className="h-5 w-5 "
                       type="checkbox"
                       checked={row[column]}
-                      onChange={() => handleChange(row._id)}
+                      onChange={() => handleChange(row._id, !row[column])}
                     />
                   ) : column === 'idImage' ? (
                     <img

@@ -18,9 +18,9 @@ export const createForm = createAsyncThunk(
         },
       };
 
-      await axios.post(`${serverUrl}/api/forms`, form, config);
+      const { data } = await axios.post(`${serverUrl}/api/forms`, form, config);
 
-      return true;
+      return data;
     } catch (error) {
       return rejectWithValue({
         status: error.response && error.response.status,

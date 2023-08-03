@@ -1,18 +1,28 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Table from './Table';
 import Message from '../Message';
 import Loader from '../Loader';
 
+import { listForms, deleteForm } from '../../../redux/thunks/formThunks';
+
 function FormsList() {
   const formColumns = ['_id', 'name', 'email', 'phone', 'address', 'idImage'];
 
+  const dispatch = useDispatch();
+
   const form = useSelector((state) => state.form);
-  const { loading, forms, listFormsError } = form;
+  const { loading, forms, listFormsError, deleteFormError, deleteFormSuccess } =
+    form;
 
   const handleDelete = (id) => {
-    console.log(id);
+    dispatch(deleteForm(id)).then(() => dispatch(listForms({})));
+  };
+
+  const successMessageDelete = deleteFormSuccess && {
+    status: '200',
+    message: 'Form Deleted Successfully!',
   };
 
   return (
@@ -22,18 +32,23 @@ function FormsList() {
         <Loader />
       ) : (
         <>
-          {listFormsError && <Message>{listFormsError}</Message>}
-          {forms.length > 0 ? (
-            <Table
-              data={forms}
-              columns={formColumns}
-              handleDelete={handleDelete}
-            />
-          ) : (
-            <h2 className="text-red-500 text-xl text-center rounded-md border-2 border-teal-700 font-semibold mb-2 p-4 hidden md:block">
-              Not Found..
-            </h2>
+          {(listFormsError || deleteFormError) && (
+            <Message>{listFormsError || deleteFormError}</Message>
           )}
+          {deleteFormSuccess && <Message>{successMessageDelete}</Message>}
+          <div className="mt-4">
+            {forms.length > 0 ? (
+              <Table
+                data={forms}
+                columns={formColumns}
+                handleDelete={handleDelete}
+              />
+            ) : (
+              <h2 className="text-white text-xl text-center rounded-md border-2 border-teal-400 font-semibold mb-2 p-4 hidden md:block">
+                No Forms Found..
+              </h2>
+            )}
+          </div>
         </>
       )}
     </div>
