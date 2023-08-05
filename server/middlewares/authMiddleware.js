@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
-const { Error } = require('mongoose');
 
 const User = require('../schemas/userSchema');
 

@@ -6,7 +6,7 @@ const TemplateList = React.lazy(() => import('../templates/TemplateList'));
 
 function TemplateStep(props) {
   const handleTemplateSelect = (templateId) => {
-    console.log('Selected template ID:', templateId);
+    // console.log('Selected template ID:', templateId);
     props.setSelectedTemplate(templateId);
     props.setSteps((prev) => prev + 1);
   };

@@ -28,7 +28,7 @@ const updateSvgContent = (svgContent, userData) => {
 };
 
 function TemplatePreview(props) {
-  console.log(props);
+  // console.log(props);
 
   useEffect(() => {
     const template = props.templates.find(
@@ -47,6 +47,7 @@ function TemplatePreview(props) {
     <Card>
       <div
         className="rounded-md"
+        ref={props.svgRef}
         dangerouslySetInnerHTML={{ __html: props.svgContent }}
       />
     </Card>

@@ -1,4 +1,5 @@
 const asyncHandler = require('express-async-handler');
+const cloudinary = require('cloudinary').v2;
 
 const IDCardCredential = require('../schemas/idCredentialsSchema');
 
@@ -25,15 +26,20 @@ const createForm = asyncHandler(async (req, res) => {
   const { name, email, phone, address } = req.body;
   const userId = req.user._id;
 
-  console.log(req.file);
-
   // req.file contains the uploaded image information
   if (!req.file) {
     res.status(400);
     throw new Error('Please Upload an image');
   }
 
-  const idImage = req.file.path; // Uploaded image path
+  let idImage = req.file.path;
+  await cloudinary.uploader.upload(req.file.path, (error, result) => {
+    if (error) {
+      res.status(400);
+      throw new Error('Failed to Upload Image to Cloudinary!');
+    }
+    idImage = result.secure_url;
+  });
 
   const idCardCredential = new IDCardCredential({
     user: userId,
@@ -76,6 +82,7 @@ const deleteForm = asyncHandler(async (req, res) => {
 
 const getAllForms = asyncHandler(async (req, res) => {
   const idCardCredentials = await IDCardCredential.find({});
+
   if (idCardCredentials) {
     res.json(idCardCredentials);
   } else {

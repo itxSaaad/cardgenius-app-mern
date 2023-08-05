@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const colors = require('colors');
 const morgan = require('morgan');
+const cloudinary = require('cloudinary').v2;
 
 const connectDb = require('./config/db');
 const { notFound, errorHandler } = require('./middlewares/errorMiddleware');
@@ -13,6 +14,12 @@ const formRoutes = require('./routes/formRoutes');
 dotenv.config();
 
 connectDb();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const app = express();
 

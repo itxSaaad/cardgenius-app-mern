@@ -15,7 +15,7 @@ function FormStep({ setSteps }) {
   const { loading, createFormError, createFormSuccess } = form;
 
   const handleFormSubmit = (formData) => {
-    console.log(formData);
+    // console.log(formData);
     dispatch(createForm(formData));
   };
 
@@ -23,7 +23,7 @@ function FormStep({ setSteps }) {
     if (createFormSuccess) {
       setSteps((prev) => prev + 1);
     }
-  }, [createFormSuccess, setSteps, dispatch]);
+  }, [createFormSuccess, setSteps]);
 
   return (
     <Suspense fallback={<Loader />}>

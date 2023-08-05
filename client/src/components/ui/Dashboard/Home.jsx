@@ -19,36 +19,34 @@ function Home() {
   const totalUsers = users.length;
   const totalForms = forms.length;
 
-  // Get the current date
-  const currentDate = new Date();
-
   // Function to check if a user was created today
   const isCreatedToday = (userDate) => {
     const userCreationDate = new Date(userDate);
+    const today = new Date();
     return (
-      userCreationDate.getDate() === currentDate.getDate() &&
-      userCreationDate.getMonth() === currentDate.getMonth() &&
-      userCreationDate.getFullYear() === currentDate.getFullYear()
+      userCreationDate.getDate() === today.getDate() &&
+      userCreationDate.getMonth() === today.getMonth() &&
+      userCreationDate.getFullYear() === today.getFullYear()
     );
   };
 
   // Function to check if a user was created this week
   const isCreatedThisWeek = (userDate) => {
     const userCreationDate = new Date(userDate);
-    const today = currentDate.getDay();
-    const userDay = userCreationDate.getDay();
+    const today = new Date();
     return (
-      currentDate.getTime() - userCreationDate.getTime() <
-        7 * 24 * 60 * 60 * 1000 && today >= userDay
+      today.getTime() - userCreationDate.getTime() < 7 * 24 * 60 * 60 * 1000 &&
+      today.getDay() >= userCreationDate.getDay()
     );
   };
 
   // Function to check if a user was created this month
   const isCreatedThisMonth = (userDate) => {
     const userCreationDate = new Date(userDate);
+    const today = new Date();
     return (
-      userCreationDate.getMonth() === currentDate.getMonth() &&
-      userCreationDate.getFullYear() === currentDate.getFullYear()
+      userCreationDate.getMonth() === today.getMonth() &&
+      userCreationDate.getFullYear() === today.getFullYear()
     );
   };
 

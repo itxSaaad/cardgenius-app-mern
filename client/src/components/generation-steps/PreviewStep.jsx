@@ -1,5 +1,6 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import html2canvas from 'html2canvas';
 
 import Button from '../ui/Button';
 import Loader from '../ui/Loader';
@@ -14,9 +15,18 @@ function PreviewStep(props) {
   const form = useSelector((state) => state.form);
   const { loading, createdForm } = form;
 
+  const svgRef = useRef(null); // Create a ref using useRef
+
   const handleDownloadPDF = () => {
-    // Code to create PDF with svgContent and initiate download
+    html2canvas(svgRef.current, { useCORS: true }).then((canvas) => {
+      const pngImage = canvas.toDataURL('image/png');
+      const downloadLink = document.createElement('a');
+      downloadLink.href = pngImage;
+      downloadLink.download = 'image.png';
+      downloadLink.click();
+    });
   };
+
   return (
     <Suspense fallback={<Loader />}>
       <div className="flex flex-col items-center justify-center ">
@@ -28,22 +38,24 @@ function PreviewStep(props) {
         ) : (
           <>
             <div className="flex flex-col items-center justify-center">
+              {/* Pass the svgRef to the TemplatePreview component */}
               <TemplatePreview
                 templates={props.templates}
                 selectedTemplate={props.selectedTemplate}
                 setSvgContent={setSvgContent}
                 svgContent={svgContent}
                 userData={createdForm}
+                svgRef={svgRef}
               />
             </div>
 
-            <div className="flex flex-col sm:flex-row ">
+            <div className="flex flex-col sm:flex-row">
               <Button
                 variant="secondary"
                 className="rounded-md"
                 onClick={handleDownloadPDF}
               >
-                Download as PDF
+                Download Card
               </Button>
               <Button
                 variant="primary"
