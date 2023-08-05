@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import Button from '../ui/Button';
 
@@ -138,5 +139,9 @@ function CardDataForm({ onSubmit }) {
     </form>
   );
 }
+
+CardDataForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default CardDataForm;

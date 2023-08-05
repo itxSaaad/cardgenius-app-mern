@@ -100,6 +100,7 @@ function GenerateCardScreen() {
                   templates={templates}
                   setSteps={setSteps}
                   selectedTemplate={selectedTemplate}
+                  setSelectedTemplate={setSelectedTemplate}
                 />
               )}
 
@@ -120,5 +121,7 @@ function GenerateCardScreen() {
     </>
   );
 }
+
+GenerateCardScreen.propTypes = {};
 
 export default GenerateCardScreen;

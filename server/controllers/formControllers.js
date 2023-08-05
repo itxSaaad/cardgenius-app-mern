@@ -53,6 +53,7 @@ const createForm = asyncHandler(async (req, res) => {
   const createdIDCardCredential = await idCardCredential.save();
 
   res.status(201).json({
+    status: 'success',
     message: 'ID Card Credentials Created!',
     idCardCredential: createdIDCardCredential,
   });

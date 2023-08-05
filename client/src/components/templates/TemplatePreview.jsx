@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import Card from '../ui/Card';
 
@@ -27,31 +28,47 @@ const updateSvgContent = (svgContent, userData) => {
   return updatedSvgContent;
 };
 
-function TemplatePreview(props) {
+function TemplatePreview({
+  templates,
+  selectedTemplate,
+  userData,
+  svgContent,
+  setSvgContent,
+  svgRef,
+}) {
   // console.log(props);
 
   useEffect(() => {
-    const template = props.templates.find(
-      (template) => template.id === props.selectedTemplate
+    const template = templates.find(
+      (template) => template.id === selectedTemplate
     );
 
     if (template) {
       const svgContent = updateSvgContent(
         template.content,
-        props.userData.idCardCredential
+        userData.idCardCredential
       );
-      props.setSvgContent(svgContent);
+      setSvgContent(svgContent);
     }
-  }, [props.selectedTemplate, props.templates]);
+  }, [selectedTemplate, templates, userData.idCardCredential, setSvgContent]);
   return (
     <Card>
       <div
         className="rounded-md"
-        ref={props.svgRef}
-        dangerouslySetInnerHTML={{ __html: props.svgContent }}
+        ref={svgRef}
+        dangerouslySetInnerHTML={{ __html: svgContent }}
       />
     </Card>
   );
 }
+
+TemplatePreview.propTypes = {
+  templates: PropTypes.array.isRequired,
+  selectedTemplate: PropTypes.number.isRequired,
+  userData: PropTypes.object.isRequired,
+  svgContent: PropTypes.string.isRequired,
+  setSvgContent: PropTypes.func.isRequired,
+  svgRef: PropTypes.object.isRequired,
+};
 
 export default TemplatePreview;

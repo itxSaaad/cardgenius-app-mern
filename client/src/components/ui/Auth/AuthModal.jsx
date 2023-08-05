@@ -1,4 +1,5 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import PropTypes from 'prop-types';
+import React, { Suspense, useEffect, useState } from 'react';
 
 import Loader from '../Loader';
 
@@ -85,5 +86,9 @@ function AuthModal({ onClose }) {
     </div>
   );
 }
+
+AuthModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+};
 
 export default AuthModal;

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Suspense } from 'react';
 
 import Loader from '../ui/Loader';
@@ -7,6 +8,7 @@ const TemplateList = React.lazy(() => import('../templates/TemplateList'));
 function TemplateStep(props) {
   const handleTemplateSelect = (templateId) => {
     // console.log('Selected template ID:', templateId);
+    // console.log('Called from Step 2');
     props.setSelectedTemplate(templateId);
     props.setSteps((prev) => prev + 1);
   };
@@ -25,5 +27,11 @@ function TemplateStep(props) {
     </Suspense>
   );
 }
+
+TemplateStep.propTypes = {
+  templates: PropTypes.array.isRequired,
+  setSelectedTemplate: PropTypes.func.isRequired,
+  setSteps: PropTypes.func.isRequired,
+};
 
 export default TemplateStep;

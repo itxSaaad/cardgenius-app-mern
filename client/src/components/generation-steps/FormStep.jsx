@@ -1,4 +1,5 @@
-import React, { Suspense, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import React, { Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Loader from '../ui/Loader';
@@ -12,18 +13,17 @@ function FormStep({ setSteps }) {
   const dispatch = useDispatch();
 
   const form = useSelector((state) => state.form);
-  const { loading, createFormError, createFormSuccess } = form;
+  const { loading, createFormError } = form;
 
-  const handleFormSubmit = (formData) => {
+  const handleFormSubmit = async (formData) => {
     // console.log(formData);
-    dispatch(createForm(formData));
-  };
-
-  useEffect(() => {
-    if (createFormSuccess) {
+    const result = await dispatch(createForm(formData));
+    // console.log(result);
+    if (result.payload.status && result.payload.status === 'success') {
+      // console.log('Called from Step 1 inside');
       setSteps((prev) => prev + 1);
     }
-  }, [createFormSuccess, setSteps]);
+  };
 
   return (
     <Suspense fallback={<Loader />}>
@@ -70,5 +70,9 @@ function FormStep({ setSteps }) {
     </Suspense>
   );
 }
+
+FormStep.propTypes = {
+  setSteps: PropTypes.func.isRequired,
+};
 
 export default FormStep;

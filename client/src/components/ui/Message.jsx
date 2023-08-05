@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 
 const Message = ({ children }) => {
@@ -78,6 +79,10 @@ const Message = ({ children }) => {
       <span className="block sm:inline">{children.message}</span>
     </div>
   );
+};
+
+Message.propTypes = {
+  children: PropTypes.object.isRequired,
 };
 
 export default Message;

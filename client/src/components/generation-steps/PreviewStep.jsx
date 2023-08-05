@@ -1,6 +1,7 @@
-import React, { Suspense, useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import html2canvas from 'html2canvas';
+import PropTypes from 'prop-types';
+import React, { Suspense, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import Button from '../ui/Button';
 import Loader from '../ui/Loader';
@@ -25,6 +26,12 @@ function PreviewStep(props) {
       downloadLink.download = 'image.png';
       downloadLink.click();
     });
+  };
+
+  const handleCreateNewCard = () => {
+    // console.log('Called from Step 3s');
+    props.setSteps(1);
+    props.setSelectedTemplate(null);
   };
 
   return (
@@ -60,7 +67,7 @@ function PreviewStep(props) {
               <Button
                 variant="primary"
                 className="sm:ml-2 rounded-md"
-                onClick={() => props.setSteps(1)}
+                onClick={handleCreateNewCard}
               >
                 Create New Card
               </Button>
@@ -71,5 +78,12 @@ function PreviewStep(props) {
     </Suspense>
   );
 }
+
+PreviewStep.propTypes = {
+  templates: PropTypes.array.isRequired,
+  selectedTemplate: PropTypes.number.isRequired,
+  setSteps: PropTypes.func.isRequired,
+  setSelectedTemplate: PropTypes.func.isRequired,
+};
 
 export default PreviewStep;

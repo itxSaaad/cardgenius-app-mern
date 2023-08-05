@@ -1,17 +1,12 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-import SideBarToggleButton from './SideBarToggleButton';
-import Home from './Home';
-import UserList from './UserList';
 import FormsList from './FormsList';
+import Home from './Home';
+import SideBarToggleButton from './SideBarToggleButton';
+import UserList from './UserList';
 
-function MainContent({
-  menuItems,
-  activeMenuItem,
-  collapsible,
-  onToggleSidebar,
-}) {
+function MainContent({ activeMenuItem, collapsible, onToggleSidebar }) {
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
 
@@ -31,7 +26,6 @@ function MainContent({
         <h1 className="text-4xl text-center font-bold">
           Welcome to Admin Panel {formattedUserName}!
         </h1>
-
         {activeMenuItem === 'Home' && <Home />}
         {activeMenuItem === 'Users' && <UserList />}
         {activeMenuItem === 'Forms' && <FormsList />}
@@ -39,5 +33,11 @@ function MainContent({
     </div>
   );
 }
+
+MainContent.propTypes = {
+  activeMenuItem: PropTypes.string.isRequired,
+  collapsible: PropTypes.bool.isRequired,
+  onToggleSidebar: PropTypes.func.isRequired,
+};
 
 export default MainContent;

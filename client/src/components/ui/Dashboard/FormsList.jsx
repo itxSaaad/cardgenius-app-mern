@@ -1,11 +1,11 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Table from './Table';
-import Message from '../Message';
 import Loader from '../Loader';
+import Message from '../Message';
+import Table from './Table';
 
-import { listForms, deleteForm } from '../../../redux/thunks/formThunks';
+import { deleteForm, listForms } from '../../../redux/thunks/formThunks';
 
 function FormsList() {
   const formColumns = ['_id', 'name', 'email', 'phone', 'address', 'idImage'];

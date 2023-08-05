@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function ProfileCard({ user }) {
   return (
     <div
@@ -13,5 +15,9 @@ function ProfileCard({ user }) {
     </div>
   );
 }
+
+ProfileCard.propTypes = {
+  user: PropTypes.object.isRequired,
+};
 
 export default ProfileCard;

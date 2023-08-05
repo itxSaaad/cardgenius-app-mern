@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { updateProfile } from '../../../redux/thunks/userThunks';
 
 import Button from '../Button';
-import Message from '../Message.jsx';
 import Loader from '../Loader';
+import Message from '../Message.jsx';
 
 function EditProfileForm({ setIsEditing }) {
   const dispatch = useDispatch();
@@ -130,5 +131,9 @@ function EditProfileForm({ setIsEditing }) {
     </div>
   );
 }
+
+EditProfileForm.propTypes = {
+  setIsEditing: PropTypes.func.isRequired,
+};
 
 export default EditProfileForm;

@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 function SideBarToggleButton({ onClick, isOpen }) {
   return (
@@ -13,5 +13,10 @@ function SideBarToggleButton({ onClick, isOpen }) {
     </button>
   );
 }
+
+SideBarToggleButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+};
 
 export default SideBarToggleButton;

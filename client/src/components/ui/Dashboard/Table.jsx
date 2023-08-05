@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 import Button from '../Button';
 
@@ -57,5 +57,12 @@ function Table({ data, columns, handleDelete, handleChange }) {
     </div>
   );
 }
+
+Table.propTypes = {
+  data: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired,
+  handleDelete: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+};
 
 export default Table;

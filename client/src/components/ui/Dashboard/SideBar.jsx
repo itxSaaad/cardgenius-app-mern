@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 function SideBar({
   menuItems,
@@ -39,5 +39,12 @@ function SideBar({
     </div>
   );
 }
+
+SideBar.propTypes = {
+  menuItems: PropTypes.array.isRequired,
+  activeMenuItem: PropTypes.string.isRequired,
+  handleMenuItemClick: PropTypes.func.isRequired,
+  collapsible: PropTypes.bool.isRequired,
+};
 
 export default SideBar;

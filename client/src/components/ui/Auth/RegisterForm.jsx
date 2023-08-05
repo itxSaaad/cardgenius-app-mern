@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Loader from '../Loader';
 import Button from '../Button';
+import Loader from '../Loader';
 import Message from '../Message';
 
 import { register } from '../../../redux/thunks/userThunks';

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Suspense } from 'react';
 
 import Loader from '../ui/Loader';
@@ -19,5 +20,10 @@ function TemplateList(props) {
     </Suspense>
   );
 }
+
+TemplateList.propTypes = {
+  templates: PropTypes.array.isRequired,
+  onSelect: PropTypes.func.isRequired,
+};
 
 export default TemplateList;

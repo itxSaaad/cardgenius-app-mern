@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 function TemplateItem({ template, onSelect }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -30,5 +31,10 @@ function TemplateItem({ template, onSelect }) {
     </div>
   );
 }
+
+TemplateItem.propTypes = {
+  template: PropTypes.object.isRequired,
+  onSelect: PropTypes.func.isRequired,
+};
 
 export default TemplateItem;
