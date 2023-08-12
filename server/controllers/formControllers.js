@@ -26,19 +26,28 @@ const createForm = asyncHandler(async (req, res) => {
   const { name, email, phone, address } = req.body;
   const userId = req.user._id;
 
-  // req.file contains the uploaded image information
   if (!req.file) {
     res.status(400);
     throw new Error('Please Upload an image');
   }
 
-  let idImage = req.file.path;
-  await cloudinary.uploader.upload(req.file.path, (error, result) => {
-    if (error) {
-      res.status(400);
-      throw new Error('Failed to Upload Image to Cloudinary!');
-    }
-    idImage = result.secure_url;
+  // Upload the image buffer directly to Cloudinary using upload_stream
+  const cloudinaryResponse = await new Promise((resolve, reject) => {
+    cloudinary.uploader
+      .upload_stream((error, result) => {
+        if (error) {
+          res
+            .status(400)
+            .json({ error: 'Failed to upload image to Cloudinary' });
+          reject(error);
+          return;
+        }
+
+        // Successfully uploaded to Cloudinary
+        const idImage = result.secure_url;
+        resolve(idImage);
+      })
+      .end(req.file.buffer);
   });
 
   const idCardCredential = new IDCardCredential({
@@ -47,7 +56,7 @@ const createForm = asyncHandler(async (req, res) => {
     email,
     phone,
     address,
-    idImage,
+    idImage: cloudinaryResponse, // Use the resolved secure URL
   });
 
   const createdIDCardCredential = await idCardCredential.save();
