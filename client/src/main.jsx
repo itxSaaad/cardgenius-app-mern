@@ -1,19 +1,14 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import {
-  Route,
-  RouterProvider,
-  createBrowserRouter,
-  createRoutesFromElements,
-} from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import App from './App.jsx';
 import './index.css';
-
 import store from './redux/store.js';
 
 import Loader from './components/ui/Loader.jsx';
+import ErrorScreen from './screens/ErrorScreen.jsx';
 
 const HomeScreen = React.lazy(() => import('./screens/HomeScreen.jsx'));
 const GenerateCardScreen = React.lazy(() =>
@@ -25,17 +20,35 @@ const DashboardScreen = React.lazy(() =>
   import('./screens/DashboardScreen.jsx')
 );
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<App />}>
-      <Route index={true} path="/" element={<HomeScreen />} />
-      <Route path="/generate-card" element={<GenerateCardScreen />} />
-      <Route path="/contact-us" element={<ContactScreen />} />
-      <Route path="/profile" element={<ProfileScreen />} />
-      <Route path="/admin/dashboard" element={<DashboardScreen />} />
-    </Route>
-  )
-);
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    errorElement: <ErrorScreen />,
+    children: [
+      {
+        path: '/',
+        element: <HomeScreen />,
+      },
+      {
+        path: '/generate-card',
+        element: <GenerateCardScreen />,
+      },
+      {
+        path: '/contact-us',
+        element: <ContactScreen />,
+      },
+      {
+        path: '/profile',
+        element: <ProfileScreen />,
+      },
+      {
+        path: '/admin/dashboard',
+        element: <DashboardScreen />,
+      },
+    ],
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>

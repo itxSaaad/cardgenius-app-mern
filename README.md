@@ -31,7 +31,7 @@
 ## Features
 
 - Generate ID cards based on personal details
-- Download ID cards as PDF
+- Download ID cards as PNG
 - Save ID cards to database
 - View saved ID cards
 - Delete saved ID cards
@@ -39,11 +39,20 @@
 ## Built With
 
 - [React.js](https://reactjs.org/) - HTML enhanced for web apps!
-- [Next.js](https://nextjs.org/) - React Framework
+- [React Redux](https://react-redux.js.org/) - A Predictable State Container for JS Apps
+- [Redux Toolkit](https://redux-toolkit.js.org/) - The official, opinionated, batteries-included toolset for efficient Redux development
+- [React Router](https://reactrouter.com/) - Declarative routing for React.js
 - [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework
+- [Vite.js](https://vitejs.dev/) - Next Generation Frontend Tooling
+- [Axios](https://axios-http.com/) - Promise based HTTP client for the browser and node.js
 - [MongoDB](https://www.mongodb.com/) - NoSQL Database
 - [Express.js](https://expressjs.com/) - Fast, unopinionated, minimalist web framework for Node.js
 - [Node.js](https://nodejs.org/en/) - JavaScript runtime built on Chrome's V8 JavaScript engine
+- [Mongoose](https://mongoosejs.com/) - Elegant MongoDB object modeling for Node.js
+- [JWT](https://jwt.io/) - JSON Web Tokens are an open, industry standard RFC 7519 method for representing claims securely between two parties
+- [Bcrypt](https://www.npmjs.com/package/bcrypt) - A library to help you hash passwords
+- [Multer](https://www.npmjs.com/package/multer) - Node.js middleware for handling multipart/form-data, which is primarily used for uploading files
+- [Cloudinary](https://cloudinary.com/) - Cloudinary is a cloud service that offers a solution to a web application's entire image management pipeline
 
 ## Getting Started
 
@@ -74,9 +83,19 @@ PORT=5000
 MONGO_URI=<YOUR_MONGODB_URI>
 SALT=<YOUR_SALT>
 JWT_SECRET=<YOUR_JWT_SECRET_KEY>
+CLOUDINARY_CLOUD_NAME=<YOUR_CLOUDINARY_CLOUD_NAME>
+CLOUDINARY_API_KEY=<YOUR_CLOUDINARY_API_KEY>
+CLOUDINARY_API_SECRET=<YOUR_CLOUDINARY_API_SECRET>
 ```
 
-4. Run the app
+4. Create a `.env` file in the `client` directory and add the following
+
+```sh
+VITE_CLIENT_URL="http://localhost:5173"
+VITE_SERVER_URL="http://localhost:5000"
+```
+
+5. Run the app
 
 ```sh
 npm run dev
