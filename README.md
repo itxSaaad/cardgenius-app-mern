@@ -1,5 +1,18 @@
 # CardGenius ID Card Generator
 
+## Architecture
+
+```mermaid
+flowchart LR
+  User[Card creator] -->|enter details and preview design| Client[React ID card interface\nVercel Services: frontend]
+  Client -->|save or generate card request| API[Express and Node.js API\nVercel Services: frontend-backend]
+  API --> Mongo[(MongoDB)]
+  Mongo --> API
+  API --> Client
+  Client --> Card[Generated ID card]
+  Card --> User
+```
+
 > CardGenius ID Card Generator is a web application built using the MERN (MongoDB, Express.js, React.js, Node.js) stack. It allows users to generate ID cards based on their personal details.
 
 <br />
@@ -144,3 +157,8 @@ Give ⭐️ if you like this project!
 [issues-url]: https://github.com/itxSaaad/cardgenius-app-mern/issues
 [license-shield]: https://img.shields.io/github/license/itxSaaad/cardgenius-app-mern.svg?style=for-the-badge
 [license-url]: https://github.com/itxSaaad/cardgenius-app-mern/blob/main/LICENSE.md
+
+## Vercel Deployment
+Vite client client/ + Express API server/index.js. Set Vercel framework to Services. Client API routes use /api on this origin. Configure MongoDB/Cloudinary environment values in Vercel.
+See the repository-root [vercel.json](./vercel.json) for build roots and routing. Configure private values in Vercel Project Settings; never commit secrets.
+
